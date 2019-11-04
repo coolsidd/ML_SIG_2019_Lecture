@@ -10,11 +10,14 @@ import ipywidgets as widgets
 # import ipywidgets as widgets
 
 NUM_POINTS = 200
-func = None
 
 
-def get_noisy_func(x, variance):
+def polynomial(*args):
+    fx = lambda x: sum([args[i] * (x ** i) for i in range(len(args))])
+    return fx
 
+
+def get_noisy_func(x, variance, func):
     y = func(x)
     noise = np.random.normal(
         0, (np.max(y) - np.min(y)) * 0.2 * variance, int(NUM_POINTS)
@@ -50,9 +53,9 @@ def update_degree(val):
     fig.canvas.draw_idle()
 
 
-def update_noise(degree, val):
+def update_noise(degree, val, noise):
     noise = val
-    y = get_noisy_func(x, noise)
+    y = get_noisy_func(x, noise, func)
     y_hat = get_polynomial_fit(x, y, degree)
     l1.set_offsets(np.c_[x, y])
     l2[0].set_ydata(y_hat)
@@ -69,8 +72,8 @@ def poly_regression(func_to_fit=np.sqrt, x_range=(1, 50), num_points=None):
     global l1, l2, x, y, y_hat, fig, ax, func
     func = func_to_fit
     if num_points is not None:
-        NUM_POINTS = num_points
-    fig = plt.figure()
+        NUM_POINTS = min(NUM_POINTS, num_points)
+    fig = plt.figure(figsize=(8, 5))
     ax = fig.add_subplot(111)
     # fig, ax = plt.subplots()
     fig.tight_layout()
@@ -82,7 +85,7 @@ def poly_regression(func_to_fit=np.sqrt, x_range=(1, 50), num_points=None):
     # sdegree = Slider(degree, "Degree", 1, 30, valinit=3, valstep=1)
 
     x = np.linspace(x_range[0], x_range[1], NUM_POINTS)
-    y = get_noisy_func(x, 0.2)
+    y = get_noisy_func(x, 0.2, func)
     y_hat = get_polynomial_fit(x, y, 3)
     l1 = ax.scatter(x, y, alpha=0.8)
     l2 = ax.plot(x, y_hat, c="r", lw=3)
@@ -92,11 +95,12 @@ def poly_regression(func_to_fit=np.sqrt, x_range=(1, 50), num_points=None):
 
     interact(update_degree, val=widgets.IntSlider(value=2, min=1, max=30, step=1))
     widgets.interact(
-        lambda noise: update_noise(degree, noise),
+        lambda noise: update_noise(degree, noise, func),
         noise=widgets.FloatSlider(value=0.3, min=0, max=1, step=0.001),
     )
     # resetax = plt.axes([0.8, 0.025, 0.1, 0.04])
     # button = Button(resetax, "Reset", color=axcolor, hovercolor="0.975")
     # button.on_clicked(reset)
 
+    plt.title("Polynomial Regression")
     plt.show()
