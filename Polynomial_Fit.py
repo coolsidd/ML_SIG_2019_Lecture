@@ -11,16 +11,17 @@ import ipywidgets as widgets
 
 NUM_POINTS = 200
 
-
 def polynomial(*args):
     fx = lambda x: sum([args[i] * (x ** i) for i in range(len(args))])
     return fx
 
 
-def get_noisy_func(x, variance, func):
+def get_noisy_func(x, variance, func, num_pts=None):
+    if not num_pts:
+        num_pts = x.shape[0]
     y = func(x)
     noise = np.random.normal(
-        0, (np.max(y) - np.min(y)) * 0.2 * variance, int(NUM_POINTS)
+        0, (np.max(y) - np.min(y)) * 0.2 * variance, int(num_pts)
     )
     y = y + noise
     return y
