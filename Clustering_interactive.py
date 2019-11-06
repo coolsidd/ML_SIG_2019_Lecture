@@ -3,56 +3,38 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from sklearn.cluster import *
-
+from sklearn.mixture import GaussianMixture
+import sklearn.datasets
 
 index = MAX_POINTS = pts = text = l1 = fig = cluster_func = None
 
 
-def cluster_pts(num_pts=30, clusterer=DBSCAN(min_samples=2, eps=0.6)):
+def cluster_pts(num_pts=30, clusterer_no=0):
     global index, MAX_POINTS, pts, text, l1, fig, cluster_func
-
-    ## FIXME
-    ms = MeanShift(bandwidth=bandwidth, bin_seeding=True)
+    ms = MeanShift(bandwidth=1, bin_seeding=True)
     two_means = MiniBatchKMeans(n_clusters=4)
-    ward = AgglomerativeClustering(
-        n_clusters=params["n_clusters"], linkage="ward", connectivity=connectivity
-    )
-    spectral = SpectralClustering(
-        n_clusters=params["n_clusters"],
-        eigen_solver="arpack",
-        affinity="nearest_neighbors",
-    )
-    dbscan = DBSCAN(eps=params["eps"])
-    optics = OPTICS(
-        min_samples=params["min_samples"], xi=params["xi"], min_size=params["min_size"]
-    )
-    affinity_propagation = AffinityPropagation(
-        damping=params["damping"], preference=params["preference"]
-    )
-    average_linkage = AgglomerativeClustering(
-        linkage="average",
-        affinity="cityblock",
-        n_clusters=params["n_clusters"],
-        connectivity=connectivity,
-    )
-    birch = Birch(n_clusters=params["n_clusters"])
-    gmm = mixture.GaussianMixture(
-        n_components=params["n_clusters"], covariance_type="full"
-    )
-    clustering_algorithms = (
-        ("MiniBatchKMeans", two_means),
-        ("AffinityPropagation", affinity_propagation),
-        ("MeanShift", ms),
-        ("SpectralClustering", spectral),
-        ("Ward", ward),
-        ("AgglomerativeClustering", average_linkage),
-        ("DBSCAN", dbscan),
-        ("OPTICS", optics),
-        ("Birch", birch),
-        ("GaussianMixture", gmm),
-    )
-    ## FIXME_END
-    cluster_func = clusterer
+    ward = AgglomerativeClustering(n_clusters=4, linkage="ward")
+    spectral = SpectralClustering(n_clusters=4)
+    dbscan = DBSCAN(eps=0.8, min_samples=2)
+    optics = OPTICS(min_samples=2)
+    affinity_propagation = AffinityPropagation()
+    average_linkage = AgglomerativeClustering(linkage="average", n_clusters=4)
+    birch = Birch(n_clusters=4)
+    gmm = GaussianMixture(n_components=4)
+    clustering_algorithms = [
+        dbscan,
+        two_means,
+        affinity_propagation,
+        ms,
+        spectral,
+        ward,
+        average_linkage,
+        optics,
+        birch,
+        gmm,
+    ]
+
+    cluster_func = clustering_algorithms[clusterer_no]
     MAX_POINTS = min(num_pts, 50)
     fig = plt.figure()
     fig.tight_layout()
@@ -60,7 +42,13 @@ def cluster_pts(num_pts=30, clusterer=DBSCAN(min_samples=2, eps=0.6)):
     ax.set_xlim([0, 10])
     ax.set_ylim([0, 10])
     text = ax.text(0, 0, "", va="bottom", ha="left")
-    pts = np.random.random((MAX_POINTS, 2)) * 10
+    pts = sklearn.datasets.make_blobs(n_samples=MAX_POINTS, random_state=4, centers=4)[
+        0
+    ]
+    pts = pts - np.min(pts) + [0, 5]
+    pts = 7 * pts / np.max(pts)
+    # print(pts)
+    # pts = np.random.random((MAX_POINTS, 2)) * 10
     l1 = ax.scatter(pts[:, 0], pts[:, 1], c=[-1 for i in range(MAX_POINTS)])
     index = 0
     cid = fig.canvas.mpl_connect("button_press_event", onclick)

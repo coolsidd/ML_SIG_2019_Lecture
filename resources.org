@@ -1,26 +1,25 @@
 #+TITLE: resources
-
-* Prerequisites
-** Python
+* Resources
+** Prerequisites
+*** Python
 -   [[https://www.youtube.com/playlist?list=PL-osiE80TeTskrapNbzXhwoFUiLCjGgY7][Corey Schafer Videos]]
 -   [[https://automatetheboringstuff.com/][Automate the boring stuff]] : For other interesting python projects
 
-** Jupyter
+*** Jupyter
 -   [[https://jupyter.readthedocs.io/en/latest/install.html][Jupyter Notebook Quickstart]]
 
-** Github
+*** Github
 -   [[https://guides.github.com/][Github Guides]]
 -   [[https://www.git-tower.com/learn/git/videos][Git tower videos]]
 -   [[https://www.git-tower.com/learn/git/ebook/en/command-line/introduction][Git tower ebook]]
 
-** Numpy and other Libraries
+*** Numpy and other Libraries
 -   [[https://docs.scipy.org/doc/numpy/user/quickstart.html][Numpy Quickstart guide]]
 -   [[http://cs231n.github.io/python-numpy-tutorial/][CS231N Tutorials]]
 
 
-** Common Terminologies
+*** Common Terminologies
 Learn about the following terminologies:
-
 -   Accuracy, Precision and F-Score
 -   Curse of Dimensionality
 -   Bias Variance Tradoff
@@ -31,11 +30,9 @@ Learn about the following terminologies:
 - [[https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff][Wikipedia Bias vs Variance]]
 - [[https://en.wikipedia.org/wiki/Curse_of_dimensionality][Wikipedia Curse of Dimensionality]]
 
-
-* Resource Hubs
+** Resource Hubs
 - [[https://github.com/ChristosChristofidis/awesome-deep-learning][Awesome Deep Learning - Github **]]
-
-* Resources
+** Machine Learning Intro
 - [[http://www.r2d3.us/visual-intro-to-machine-learning-part-1/][Visual Introduction to Machine Learning Part 1]]
 - [[http://www.r2d3.us/visual-intro-to-machine-learning-part-2/][Visual Introduction to Machine Learning Part 2]]
 - [[http://www.visiondummy.com/2014/04/curse-dimensionality-affect-classification/][Introduction to Curse of Dimensionality]]
@@ -58,8 +55,7 @@ Learn about the following terminologies:
 -   [[https://web.cs.ucdavis.edu/~vemuri/classes/ecs271/Genetic%20Algorithms%20Short%20Tutorial.htm][UC Davis Introduction to Genetic Algorthms]]
 -   [[https://github.com/lmarti/evolutionary-computation-course][Evolutionary computation course (AEC 02 and 03 only)]]
 -   [[https://lethain.com/genetic-algorithms-cool-name-damn-simple][Genetic Algorithms simply explained]]
--   [[]./David_E_Goldberg.pdf][David Goldberg's Book on Genetic Algorithms
-  and Soft Computing]]
+-   [[./David_E_Goldberg.pdf][David Goldberg's Book on Genetic Algorithms and Soft Computing]]
 -
 ** Cool Applications of AI
 - [[http://affinelayer.com/pixsrv][Pixrv]]
