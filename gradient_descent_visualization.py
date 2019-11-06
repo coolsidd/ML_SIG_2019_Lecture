@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 
-# %matplotlib notebook
-
 """Taken from - Shathra/gradient-descent-demonstration/blob/master/gradient_descent_local_minima.py"""
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from IPython.display import HTML
-
 
 # Function to minimize
 def f(x):
@@ -68,8 +65,8 @@ def gradient_descent_animated(
 
     try:
         ani = animation.FuncAnimation(
-            fig, animate, 40, init_func=init, interval=100, blit=True
+            fig, animate, None, init_func=init, interval=100, blit=True
         )
     except:
         print("Out of bounds.")
-    plt.show()
+    return HTML(ani.to_html5_video())
