@@ -50,11 +50,9 @@ def update_plot(iterations, fig, plotdata, info, plots):
 
     np_plotdata = np.array(plotdata)
 
-    #    p1.set_xdata(np_plotdata[1:-1, 0])
-    #    p1.set_ydata(np_plotdata[1:-1, 2])
+    #p1.set_ydata(np_plotdata[:iterations, 2])
 
-    #    p2.set_xdata(np_plotdata[:, 1])
-    #    p2.set_ydata(np_plotdata[:, 2])
+    #p2.set_ydata(np_plotdata[:iterations, 2])
 
     p3.set_ydata(m * points[:, 0] + b)
 
@@ -62,7 +60,7 @@ def update_plot(iterations, fig, plotdata, info, plots):
 
 
 def get_line(
-    m_slope=1, c_intercept=0, initial_b=0, initial_m=0, learning_rate=0.001, num_pts=150
+    m_slope=1, c_intercept=0, initial_b=0, initial_m=0, learning_rate=0.001, num_pts=150, num_itr=200
 ):
     num_pts = min(200, num_pts)
     fig = figure()
@@ -78,7 +76,7 @@ def get_line(
     ).T
     #    initial_b = 0  # initial y-intercept guess
     #    initial_m = 0  # initial slope guess
-    num_iterations = 5000
+    num_iterations = num_itr
     print(
         "Starting gradient descent at:\n b = {0}, m = {1}, error = {2}".format(
             initial_b, initial_m, compute_error(initial_b, initial_m, points)
@@ -94,17 +92,18 @@ def get_line(
     )
     fig.tight_layout()
     np_plotdata = np.array(plotdata)
-    l1 = subplot2grid((2, 2), (0, 0))
-    xlabel("c")
+    l1 = subplot2grid((2, 2), (0, 0),rowspan=2)
+    xlabel("iterations (10x)")
     ylabel("cost")
-    fig1 = plot(np_plotdata[1:-1, 0], np_plotdata[1:-1, 2])
-    l2 = subplot2grid((2, 2), (1, 0))
-    xlabel("m")
-    ylabel("cost")
-    fig2 = plot(np_plotdata[:, 1], np_plotdata[:, 2])
+    fig1 = plot(np_plotdata[:, 2])
+#    l2 = subplot2grid((2, 2), (1, 0))
+#    xlabel("iterations (10x)")
+#    ylabel("cost")
+#    fig2 = plot(np_plotdata[:, 2])
     l3 = subplot2grid((2, 2), (0, 1), rowspan=2)
     xlabel("x")
     ylabel("y")
+    print(np_plotdata.shape)
     fig3 = scatter(points[:, 0], points[:, 1], alpha=0.6)
     fig4 = plot(points[:, 0], m * points[:, 0] + b, c="r")
     interact(
