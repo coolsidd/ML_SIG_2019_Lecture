@@ -43,14 +43,13 @@ def init():
     return (line,)
 
 
-def show_animation(
+def gradient_descent_animated(
     poly=[1, 0, 1], starting_point=25, learning_rate=0.01, range_of_vals=(-30, 30)
 ):
-    global x_min, x_max, x, y, x_est, y_est, fig, ax, line, text, scat, p
+    global x_min, x_max, x, y, x_est, y_est, fig, ax, line, text, scat, p, r
     poly = list(reversed(poly))
     p = np.poly1d(poly)
-    x_min, x_min = range_of_vals
-
+    x_min, x_max = range_of_vals
     x = np.linspace(x_min, x_max, 200)
     y = f(x)
     r = learning_rate  # Learning rate
