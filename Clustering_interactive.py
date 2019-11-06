@@ -2,14 +2,57 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import *
 
 
-index = MAX_POINTS = pts = text = l1 = fig = None
+index = MAX_POINTS = pts = text = l1 = fig = cluster_func = None
 
 
-def cluster_pts(num_pts=30):
-    global index, MAX_POINTS, pts, text, l1, fig
+def cluster_pts(num_pts=30, clusterer=DBSCAN(min_samples=2, eps=0.6)):
+    global index, MAX_POINTS, pts, text, l1, fig, cluster_func
+
+    ## FIXME
+    ms = MeanShift(bandwidth=bandwidth, bin_seeding=True)
+    two_means = MiniBatchKMeans(n_clusters=4)
+    ward = AgglomerativeClustering(
+        n_clusters=params["n_clusters"], linkage="ward", connectivity=connectivity
+    )
+    spectral = SpectralClustering(
+        n_clusters=params["n_clusters"],
+        eigen_solver="arpack",
+        affinity="nearest_neighbors",
+    )
+    dbscan = DBSCAN(eps=params["eps"])
+    optics = OPTICS(
+        min_samples=params["min_samples"], xi=params["xi"], min_size=params["min_size"]
+    )
+    affinity_propagation = AffinityPropagation(
+        damping=params["damping"], preference=params["preference"]
+    )
+    average_linkage = AgglomerativeClustering(
+        linkage="average",
+        affinity="cityblock",
+        n_clusters=params["n_clusters"],
+        connectivity=connectivity,
+    )
+    birch = Birch(n_clusters=params["n_clusters"])
+    gmm = mixture.GaussianMixture(
+        n_components=params["n_clusters"], covariance_type="full"
+    )
+    clustering_algorithms = (
+        ("MiniBatchKMeans", two_means),
+        ("AffinityPropagation", affinity_propagation),
+        ("MeanShift", ms),
+        ("SpectralClustering", spectral),
+        ("Ward", ward),
+        ("AgglomerativeClustering", average_linkage),
+        ("DBSCAN", dbscan),
+        ("OPTICS", optics),
+        ("Birch", birch),
+        ("GaussianMixture", gmm),
+    )
+    ## FIXME_END
+    cluster_func = clusterer
     MAX_POINTS = min(num_pts, 50)
     fig = plt.figure()
     fig.tight_layout()
@@ -28,10 +71,10 @@ def onclick(event):
 
 
 def add_point(pt):
-    global index, MAX_POINTS, pts
+    global index, MAX_POINTS
     # print("Add pt " + str(pt))
     pts[index % MAX_POINTS][0], pts[index % MAX_POINTS][1] = pt
-    clustering = DBSCAN(min_samples=2).fit(pts)
+    clustering = cluster_func.fit(pts)
     unique_labels = set(clustering.labels_)
     colors = {
         i: plt.cm.hsv(x) for i, x in enumerate(np.linspace(0, 1, len(unique_labels)))
