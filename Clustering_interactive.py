@@ -52,6 +52,7 @@ def cluster_pts(num_pts=30, clusterer_no=0):
     l1 = ax.scatter(pts[:, 0], pts[:, 1], c=[-1 for i in range(MAX_POINTS)])
     index = 0
     cid = fig.canvas.mpl_connect("button_press_event", onclick)
+    plt.show()
 
 
 def onclick(event):
