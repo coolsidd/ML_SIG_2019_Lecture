@@ -10,12 +10,12 @@ The focus was on developing people's interest in ML rather than teaching them ab
 
 ## Pictures
 <p align="center">
-  <img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/readme/assets/ml_poster.png" height=400px>  
+  <img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/master/assets/ml_poster.png" height=400px>  
 </p>  
 
-<img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/readme/assets/lec1.jpg" height=300px> | <img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/readme/assets/lec2.jpg" height=300px> 
+<img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/master/assets/lec1.jpg" height=300px> | <img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/master/assets/lec2.jpg" height=300px>
 
-<img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/readme/assets/audience1.jpg" height=300px> | <img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/readme/assets/audience2.jpg" height=300px>  
+<img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/master/assets/audience1.jpg" height=300px> | <img src="https://github.com/MananSoni42/ML_SIG_2019_Lecture/blob/master/assets/audience2.jpg" height=300px>  
 
 ## Queries?
 For any queries contact any of the lecturers below or alternatively, you can join the BITS-ACM machine-learning channel on [Slack](http://bitsacm.slack.com/).
