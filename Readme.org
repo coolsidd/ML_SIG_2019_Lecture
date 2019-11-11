@@ -1,3 +1,0 @@
-#+TITLE: ML_SIG_Lecture
-
-This repository contains resources shared on BITSACM ML SIG lecture 2019
